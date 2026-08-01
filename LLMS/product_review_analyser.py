@@ -31,7 +31,7 @@ prompt2 = PromptTemplate(
 prompt3 = PromptTemplate(
     template = "Write an appropriate response to the Negative review {review}",
     input_variables= ['review']
-)
+) 
 
 classifier_chain = prompt1|model|parser2
 
