@@ -1,0 +1,20 @@
+from langchain_community.document_loaders import DirectoryLoader,PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+text = "Cricket is one of the most popular sports in the world, especially in countries like India, Australia, England, Pakistan, and South Africa. It is played between two teams of eleven players each on a circular or oval-shaped field with a rectangular pitch at the center. The objective of the game is to score more runs than the opposing team while dismissing their batters. Cricket has several formats, including Test matches, One Day Internationals (ODIs), and Twenty20 (T20), each offering a unique style of play. The sport requires a combination of skill, strategy, teamwork, and mental toughness. Batsmen aim to score runs by hitting the ball, bowlers try to dismiss the batsmen using different bowling techniques, and fielders work together to prevent runs and take catches. Over the years, cricket has evolved with technological innovations such as the Decision Review System (DRS), Hawk-Eye, and UltraEdge, making umpiring decisions more accurate. Major tournaments like the ICC Cricket World Cup, ICC Champions Trophy, and the Indian Premier League (IPL) attract millions of viewers worldwide, making cricket not only a sport but also a global phenomenon that unites fans across different cultures and nations."
+
+loader = DirectoryLoader(
+    path = 'sample_file',
+    glob = '*.pdf',
+    loader_cls = PyPDFLoader 
+)
+
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size = 100,
+    chunk_overlap =0,
+)
+
+chunks = splitter.split(text)
+print(len(chunks))
+docs = loader.lazy_load()
+print(docs[0].page_content)
